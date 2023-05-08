@@ -28,7 +28,11 @@ def start_message(message):
 
 @bot.message_handler(commands=['help'])
 def start_message(message):
-    bot.send_message(message.chat.id, 'Я умею: \n /week - узнать какая сейчас неделя \n /start - меню бота \n /mtuci - ссылка на сайт МТУСИ \n "расписание" - расписание на выбранный день')
+    bot.send_message(message.chat.id, 'Я умею: \n '
+                                      '/week - узнать какая сейчас неделя \n '
+                                      '/start - меню бота \n '
+                                      '/mtuci - ссылка на сайт МТУСИ \n '
+                                      '"расписание" - расписание на выбранный день')
 
 
 @bot.message_handler(content_types=['text'])

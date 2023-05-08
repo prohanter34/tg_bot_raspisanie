@@ -5,7 +5,7 @@ import os
 conn = psycopg2.connect(
     database="raspisanie1",
     user="postgres",
-    password="pretki23",
+    password="erwerwre",
     host="localhost",
     port="5432"
 )
@@ -32,7 +32,8 @@ def timeTableOfDay(shift):
     elif shift == 1:
         cursor.execute("SELECT NOW()::DATE + INTERVAL '1 DAY'")
     data = list(cursor.fetchall())[0][0]
-    cursor.execute("SELECT * FROM timetable JOIN subjects on timetable.subject_name = subjects.id WHERE day='{}'".format(data))
+    cursor.execute("SELECT * FROM timetable "
+                   "JOIN subjects on timetable.subject_name = subjects.id WHERE day='{}'".format(data))
     records = list(cursor.fetchall())
     print(records)
     records = idToTeacher(records)
@@ -42,7 +43,9 @@ def timeTableOfDay(shift):
 
 def timeTableOfDayWeek(dayOfWeek):
     week = check_data_week(0)
-    cursor.execute("SELECT * FROM timetable JOIN subjects on timetable.subject_name = subjects.id WHERE extract(week from day)='{}' AND extract(dow from day)='{}';".format(week, dayOfWeek))
+    cursor.execute("SELECT * FROM timetable JOIN "
+                   "subjects on timetable.subject_name = subjects.id WHERE extract(week from day)='{}' "
+                   "AND extract(dow from day)='{}';".format(week, dayOfWeek))
     records = list(cursor.fetchall())
     records = idToTeacher(records)
     return records
@@ -52,7 +55,9 @@ def timeTableOfWeek(shift):
     week = check_data_week(shift)
     timeTable = []
     for dayOfWeek in range(1, 7):
-        cursor.execute("SELECT * FROM timetable JOIN subjects on timetable.subject_name = subjects.id WHERE extract(week from day)='{}' AND extract(dow from day)='{}';".format(week, dayOfWeek))
+        cursor.execute("SELECT * FROM timetable "
+                       "JOIN subjects on timetable.subject_name = subjects.id WHERE"
+                       " extract(week from day)='{}' AND extract(dow from day)='{}';".format(week, dayOfWeek))
         records = list(cursor.fetchall())
         records = idToTeacher(records)
         timeTable.append(records)
